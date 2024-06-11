@@ -24,7 +24,7 @@ public class ConnectionDb {
                 Class.forName("com.mysql.jdbc.Driver");
                 System.out.println("Driver loaded");
                 // établir une connexion
-                String url= "jdbc:mysql://";
+                String url= "jdbc:mysql://webetu.iutnc.univ-lorraine.fr/phpmya/index.php?route=/table/sql&db=duchene55u";
                 connectionDb = DriverManager.getConnection(url,ConnectionDb.username,ConnectionDb.password);
                 System.out.println("Database connected");
             }catch (Exception e){
