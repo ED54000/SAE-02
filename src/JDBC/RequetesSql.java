@@ -12,7 +12,7 @@ public class RequetesSql {
                 ResultSet resultSet = statement.executeQuery
                         ("SELECT nom " +
                                 "FROM Restaurant " +
-                                "WHERE id = 0");
+                                "WHERE id = 1");
                 while (resultSet.next()) {
                     System.out.println("nom en id 0 = " + resultSet.getString(1));
                 }
