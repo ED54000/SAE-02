@@ -8,6 +8,8 @@ export async function velibs_status(){
     return await response.json();
 }
 
+
+
 /*
 idées:
 api adresses et coordonnées du grand nancy :

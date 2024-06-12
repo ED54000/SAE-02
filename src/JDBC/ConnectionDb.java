@@ -21,10 +21,10 @@ public class ConnectionDb {
         if (connectionDb == null){
             try{
                 // charger le driver JDBC
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("oracle.jdbc.driver.OracleDriver");
                 System.out.println("Driver loaded");
                 // établir une connexion
-                String url= "jdbc:mysql://webetu.iutnc.univ-lorraine.fr/phpmya/index.php?route=/table/sql&db=duchene55u";
+                String url= "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
                 connectionDb = DriverManager.getConnection(url,ConnectionDb.username,ConnectionDb.password);
                 System.out.println("Database connected");
             }catch (Exception e){
@@ -34,3 +34,4 @@ public class ConnectionDb {
         return connectionDb;
     }
 }
+
