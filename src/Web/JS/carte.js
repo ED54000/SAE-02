@@ -52,7 +52,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function fetchData(){
-    //getVelib();
+        getVelib();
     getResto();
 
 
