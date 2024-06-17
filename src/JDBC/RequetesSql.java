@@ -3,7 +3,7 @@ package JDBC;
 import org.json.JSONObject;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.Map;
 
 public class RequetesSql {
 
