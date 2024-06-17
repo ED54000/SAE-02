@@ -1,48 +1,59 @@
 
 var VelibIconGreen = L.icon({
     iconUrl : "img/bike-green.svg",
-    iconSize: [38,95],
-    inconAnchor: [22,94]
+    iconSize: [19,47],
+    inconAnchor: [11,47]
 })
 
 var VelibIcon = L.icon({
     iconUrl : "img/ike-green.svg",
-    iconSize: [38,95],
-    inconAnchor: [22,94]
+    iconSize: [19,47],
+    inconAnchor: [11,47]
 })
 
 var VelibIconBlack = L.icon({
     iconUrl : "img/bike-black.svg",
-    iconSize: [38,95],
-    inconAnchor: [22,94]
+    iconSize: [19,47],
+    inconAnchor: [11,47]
 })
 
 var VelibIconYellow = L.icon({
     iconUrl : "img/bike-yellow.svg",
-    iconSize: [38,95],
-    inconAnchor: [22,94]
+    iconSize: [19,47],
+    inconAnchor: [11,47]
 })
 
 var VelibIconOrange = L.icon({
     iconUrl : "img/bike-orange.svg",
-    iconSize: [38,95],
-    inconAnchor: [22,94]
+    iconSize: [19,47],
+    inconAnchor: [11,47]
 })
 
 var VelibIconRed = L.icon({
     iconUrl : "img/bike-red.svg",
-    iconSize: [38,95],
-    inconAnchor: [22,94]
+    iconSize: [19,47],
+    inconAnchor: [11,47]
 })
 
 
 var VelibIconBlue = L.icon({
     iconUrl : "img/bike-blue.svg",
-    iconSize: [38,95],
-    inconAnchor: [22,94]
+    iconSize: [19,47],
+    inconAnchor: [11,47]
 })
 
+var IconResto = L.icon({
+    iconUrl : "img/restaurant.svg",
+    iconSize: [19,47],
+    inconAnchor: [11,47]
+})
 
+var IconEtude = L.icon({
+    iconUrl : "img/university.svg",
+    iconSize: [19,47],
+    inconAnchor: [11,47]
+
+})
 
 var map = L.map('map').setView([48.683331, 6.2], 13);
 
@@ -54,6 +65,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 function fetchData(){
         getVelib();
     getResto();
+    getEtude();
 
 
 }
@@ -62,10 +74,25 @@ function getResto(){
     fetch('http://localhost:8000/restaurants')
         .then(response => response.json())
         .then(data => {
-            console.log(data.data)
             for (let resto of data.data) {
-                var marker = L.marker([resto.latitude, resto.longitude])
+                var marker = L.marker([resto.latitude, resto.longitude], {icon: IconResto})
                 marker.bindPopup("<h1>"+resto.nom+"</h1><br><h2> "+resto.numero+" "+resto.adresse+"<br> Nombre de tables : "+ resto.nbTables + "</h2>").openPopup();
+                marker.addTo(map)
+
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
+
+
+
+function getEtude(){
+    fetch('http://localhost:8000/etudeSup')
+        .then(response => response.json())
+        .then(data => {
+            for (let etude of data.results) {
+                var marker = L.marker([etude.coordonnees.lat, etude.coordonnees.lon],{icon: IconEtude})
+                marker.bindPopup("<h1>"+etude.implantation_lib+"</h1><br><h2> "+etude.adresse_uai+"<br> Effectif : "+ etude.effectif + "</h2>").openPopup();
                 marker.addTo(map)
 
             }

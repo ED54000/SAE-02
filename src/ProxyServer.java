@@ -38,6 +38,7 @@ public class ProxyServer {
         server.createContext("/infoVelibs", new Handler("https://transport.data.gouv.fr/gbfs/nancy/station_information.json"));
         server.createContext("/statusVelibs", new Handler("https://transport.data.gouv.fr/gbfs/nancy/station_status.json"));
         server.createContext("/trafic", new Handler("https://carto.g-ny.org/data/cifs/cifs_waze_v2.json"));
+        server.createContext("/etudeSup", new Handler("https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-implantations_etablissements_d_enseignement_superieur_publics/records?limit=20&refine=etablissement_uai%3A%220542493S%22&refine=localisation%3A%22Alsace%20-%20Champagne-Ardenne%20-%20Lorraine%3ENancy-Metz%3EMeurthe-et-Moselle%3ENancy%22"));
         server.createContext("/restaurants", new StaticJsonHandler(restaurants.toString()));
         server.setExecutor(null); // Crée un exécuteur par défaut
         server.start();
