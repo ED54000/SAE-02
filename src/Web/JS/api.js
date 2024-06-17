@@ -9,7 +9,6 @@ export async function velibs_status(){
 }
 
 
-
 /*
 idées:
 api adresses et coordonnées du grand nancy :

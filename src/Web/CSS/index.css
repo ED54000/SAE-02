@@ -1,1 +1,103 @@
-#map { height: 500px; }
+body{
+    overflow: hidden;
+}
+
+.title{
+    text-align: center;
+    border-bottom: solid 1px black;
+    margin: 0 0 30px 0;
+}
+
+.meteo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 10px;
+    cursor: pointer;
+    height: -moz-fit-content;
+    height: fit-content;
+}
+
+.meteo img {
+    width: 40px;
+    height: 40px;
+}
+
+.time-info {
+    transform: translateX(100%);
+    opacity: 0;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.meteo:hover .time-info {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.legend {
+    width: 200px;
+    height: 400px;
+    padding: 0;
+    margin: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border:solid 1px black;
+    background-color: #f9fafb;
+}
+
+.legend h3{
+    border-top-left-radius: 15px;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    background-color: #f9fafb;
+    border-bottom: solid 1px black;
+}
+
+.items{
+    overflow-y: scroll;
+    height: 355px;
+    border-bottom-left-radius: 15px;
+}
+
+.legend-item{
+    display: flex;
+    align-items: center;
+    margin:10px;
+}
+
+.legend-item img{
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.legend-item span{
+    font-size: 20px;
+}
+
+#map {
+    width: 600px;
+    height: 400px;
+    background-color: #e3e3e3;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border: solid 1px black;
+}
