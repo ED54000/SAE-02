@@ -35,11 +35,11 @@ function calcTemp() {
     let tAprem = (API_TEMP[3] + API_TEMP[4] + API_TEMP[5]) / 3;
     let tSoir = (API_TEMP[5] + API_TEMP[6] + API_TEMP[7]) / 3;
     let texteMatin = document.getElementById("txt_matin");
-    texteMatin.innerHTML = Math.round(tMatin*100)/100 + " C";
+    texteMatin.innerHTML = Math.round(tMatin*100)/100 + " °C";
     let texteAprem = document.getElementById("txt_aprem");
-    texteAprem.innerHTML = Math.round(tAprem*100)/100 + " C";
+    texteAprem.innerHTML = Math.round(tAprem*100)/100 + " °C";
     let texteSoir = document.getElementById("txt_soir");
-    texteSoir.innerHTML = Math.round(tSoir*100)/100 + " C";
+    texteSoir.innerHTML = Math.round(tSoir*100)/100 + " °C";
 }
 
 function calcPluie() {
@@ -56,11 +56,11 @@ function calcPluie() {
 
 function tstPluie(nP,element){
     if (nP > 0.2) {
-        element.src = "../src/img/rain.svg";
+        element.src = "../src/img/rain.png";
     } else if (nP > 0) {
-        element.src = "../src/img/cloud.svg";
+        element.src = "../src/img/cloud.png";
     } else {
-        element.src = "../src/img/sun.svg";
+        element.src = "../src/img/sun.png";
     }
 }
 
