@@ -31,26 +31,16 @@ public class ProxyServer {
             // connexion aux deux clients RMI
             String host1 = "localhost";
             int port1 = 1099;
-            String host2 = "localhost";
-            int port2 = 1098;
 
-            if (args.length > 0) {
-                host1 = args[0];
-                if (args.length > 1) {
-                    port1 = Integer.parseInt(args[1]);
-                    if (args.length > 2) {
-                        host2 = args[2];
-                        if (args.length > 3) {
-                            port2 = Integer.parseInt(args[3]);
-                        }
-                    }
+            if (args.length > 2) {
+                host1 = args[2];
+                if (args.length > 3) {
+                    port1 = Integer.parseInt(args[3]);
                 }
             }
 
             // Création des registres RMI
             Registry registry1 = LocateRegistry.getRegistry(host1, port1);
-            Registry registry2 = LocateRegistry.getRegistry(host2, port2);
-
             // Récupération des objets distants
             service1 = (InterfaceJavaHTTP) registry1.lookup("http");
             // todo service2
