@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import java.sql.*;
 import java.util.Map;
 
-public class RequetesSql {
+public class RequetesSql implements InterfaceRequeteSql{
 
     public JSONObject getRestaurants() {
         JSONObject jsonObject = new JSONObject();
@@ -85,3 +85,4 @@ public class RequetesSql {
         return -1;
     }
 }
+
