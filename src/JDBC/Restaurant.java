@@ -7,16 +7,16 @@ public class Restaurant {
     private String adresse;
     private double latitude;
     private double longitude;
-    private int nbTables;
+    private int nbPlaces;
 
-    public Restaurant(String nom, int numero, String adresse, double latitude, double longitude, int nbTables) {
+    public Restaurant(String nom, int numero, String adresse, double latitude, double longitude, int nbPlaces) {
 
         this.nom = nom;
         this.numero = numero;
         this.adresse = adresse;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.nbTables = nbTables;
+        this.nbPlaces = nbPlaces;
     }
 
     public JSONObject toJson() {
@@ -26,7 +26,7 @@ public class Restaurant {
         jsonObject.put("adresse", this.adresse);
         jsonObject.put("latitude", this.latitude);
         jsonObject.put("longitude", this.longitude);
-        jsonObject.put("nbTables", this.nbTables);
+        jsonObject.put("nbPlaces", this.nbPlaces);
         return jsonObject;
     }
 
@@ -36,8 +36,8 @@ public class Restaurant {
         String adresse = jsonObject.getString("adresse");
         double latitude = jsonObject.getDouble("latitude");
         double longitude = jsonObject.getDouble("longitude");
-        int nbTables = jsonObject.getInt("nbTables");
-        return new Restaurant(nom, numero, adresse, latitude, longitude, nbTables);
+        int nbPlaces = jsonObject.getInt("nbPlaces");
+        return new Restaurant(nom, numero, adresse, latitude, longitude, nbPlaces);
     }
 
 
