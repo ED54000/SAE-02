@@ -13,7 +13,6 @@ public class RMIJavaSQL {
     public static void main(String[] args) {
         ConnectionDb.setUsername(args[0]);
         ConnectionDb.setPassword(args[1]);
-        Connection connection = ConnectionDb.getConnection();
 
         int port = 1098;
         if(args.length > 2){
@@ -21,7 +20,7 @@ public class RMIJavaSQL {
         }
         try {
             // Création de l'objet serveur
-            RequetesSql service = new RequetesSql(connection);
+            RequetesSql service = new RequetesSql();
 
             // Exportation de l'objet serveur
             InterfaceRequeteSql stub = (InterfaceRequeteSql) UnicastRemoteObject.exportObject(service, 0);

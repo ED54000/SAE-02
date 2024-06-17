@@ -6,16 +6,13 @@ import java.sql.*;
 import java.util.Map;
 
 public class RequetesSql implements InterfaceRequeteSql{
-    private Connection connection;
 
-    public RequetesSql(Connection connection) {
-        this.connection = connection;
-    }
 
-    public JSONObject getRestaurants() {
+
+    public String getRestaurants() {
         JSONObject jsonObject = new JSONObject();
         try {
-
+            Connection connection = ConnectionDb.getConnection();
             String sql = "SELECT NOM, NUMERO, ADRESSE, LATITUDE, LONGITUDE, NBPLACES FROM RESTAU";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet set = preparedStatement.executeQuery();
@@ -32,7 +29,8 @@ public class RequetesSql implements InterfaceRequeteSql{
         } catch (SQLException e) {
             System.out.println("erreur lors la connexion : " + e.getMessage());
         }
-        return jsonObject;
+        return jsonObject.toString();
+
     }
 
     public boolean addRestaurant(Map<String, String> map) {
