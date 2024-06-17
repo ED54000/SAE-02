@@ -3,9 +3,9 @@ package JDBC;
 import org.json.JSONObject;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.Map;
 
-public class RequetesSql {
+public class RequetesSql implements InterfaceRequeteSql{
 
     public JSONObject getRestaurants() {
         JSONObject jsonObject = new JSONObject();
@@ -31,61 +31,33 @@ public class RequetesSql {
         return jsonObject;
     }
 
-    public void addRestaurant(String nom, int numero, int adresse, double latitude, double longitude, int nbPlaces) {
+    public boolean addRestaurant(Map<String, String> map) {
         try {
             Connection connection = ConnectionDb.getConnection();
             String sql = "INSERT INTO RESTAU (NOM,NUMERO,ADRESSE,LATITUDE, LONGITUDE,NBPLACES) " +
-                         "VALUES ('"+ nom +"', "+ numero +", "+ adresse +", "+ latitude +", "+ longitude +", "+ nbPlaces +")";
+                         "VALUES ('"+ map.get("nom") +"', "+ map.get("numero") +", "+ map.get("adresse") +", "+ map.get("latitude") +", "+ map.get("longitude") +", "+ map.get("nbPlaces") +")";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
             System.out.println("Restaurant ajouté avec succès");
+            return true;
         } catch (SQLException e) {
             System.out.println("erreur lors l'ajout d'un restaurant : " + e.getMessage());
         }
+        return false;
     }
 
-    public void addReserv(int idrestaurant, String nom, String prenom, int nbconvives,String tel) {
+    public boolean addReserv(Map<String, String> map) {
         try {
             Connection connection = ConnectionDb.getConnection();
             String sql = "INSERT INTO RESERV (IDRESTAURANT,NOM,PRENOM,NBCONVIVES,COORD_TEL) " +
-                         "VALUES ("+ idrestaurant +", '"+ nom +"', '"+ prenom +"', "+ nbconvives +", '"+ tel +"')";
+                         "VALUES ("+ map.get("idrestaurant") +", '"+ map.get("nom") +"', '"+ map.get("prenom") +"', "+ map.get("nbconvives") +", '"+ map.get("tel") +"')";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
             System.out.println("Reservation ajouté avec succès");
+            return true;
         } catch (SQLException e) {
             System.out.println("erreur lors l'ajout de la reservation : " + e.getMessage());
         }
+        return false;
     }
-
-
-//    public boolean exempleFonctionSelect(String email, String password) {
-//        try {
-//            Statement statement = ConnectionDb.getConnection().createStatement();
-//            ResultSet resultSet = statement.executeQuery
-//                    ("SELECT count(numserv) " +
-//                            "FROM SERVEUR " +
-//                            "WHERE email = '" + email + "' AND passwd = '" + password + "'");
-//            if (resultSet.next()) {
-//                //...
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("erreur lors la connexion : " + e.getMessage());
-//        }
-//        return false;
-//    }
-
-//    public void exempleFonctionInsert(int numTab, String date, int nbPersonnes) {
-//        try {
-//            Statement statement = ConnectionDb.getConnection().createStatement();
-//            statement.executeUpdate("INSERT INTO reservation (numres, numtab, datres, nbpers) " +
-//                    "VALUES (" + getNbReservation() + ", " +
-//                    numTab + ", " +
-//                    "TO_DATE('" + date + "', 'dd/mm/yyyy hh24:mi'), " +
-//                    nbPersonnes + ")");
-//            System.out.println("Réservation effectuée avec succès\n");
-//        } catch (SQLException e) {
-//            System.out.println("erreur lors de la réservation d'une table : " + e.getMessage());
-//        }
-//    }
-
 }
