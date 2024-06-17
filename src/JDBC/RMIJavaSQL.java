@@ -1,4 +1,4 @@
-package JavaHTTP;
+package JDBC;
     
 import JDBC.InterfaceRequeteSql;
 import JDBC.RequetesSql;
