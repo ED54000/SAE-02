@@ -1,11 +1,21 @@
-body{
+body {
     overflow: hidden;
+    background-color: #f0f0f0; /* Light gray background */
 }
 
-.title{
+.title {
     text-align: center;
-    border-bottom: solid 1px black;
     margin: 0 0 30px 0;
+}
+
+.title h1 {
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #6a6a6a; /* Darker gray */
+    width: -moz-fit-content;
+    width: fit-content;
+    color: white;
+    border-radius: 15px;
 }
 
 .meteo {
@@ -29,7 +39,7 @@ body{
 .time-info {
     transform: translateX(100%);
     opacity: 0;
-    background: white;
+    background-color: #c0c0c0; 
     border: 1px solid #ddd;
     padding: 10px;
     transition: 0.5s;
@@ -56,32 +66,34 @@ body{
     margin: 0;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    border:solid 1px black;
-    background-color: #f9fafb;
+    border: solid 1px black;
+    background-color: #f9fafb; /* Lighter background */
 }
 
-.legend h3{
+.legend h3 {
     border-top-left-radius: 15px;
     text-align: center;
     margin: 0;
     padding: 10px;
-    background-color: #f9fafb;
+    background-color: #6a6a6a; /* Darker gray */
     border-bottom: solid 1px black;
 }
 
-.items{
+.items {
     overflow-y: scroll;
     height: 355px;
     border-bottom-left-radius: 15px;
+    background-color: #6a6a6a; /* Darker gray */
 }
 
-.legend-item{
+.legend-item {
     display: flex;
     align-items: center;
-    margin:10px;
+    margin: 10px;
+    background-color: #c0c0c0; /* Light gray */
 }
 
-.legend-item img{
+.legend-item img {
     width: 25px;
     height: 25px;
     margin: 0;
@@ -89,14 +101,14 @@ body{
     vertical-align: middle;
 }
 
-.legend-item span{
+.legend-item span {
     font-size: 20px;
 }
 
 #map {
     width: 600px;
     height: 400px;
-    background-color: #e3e3e3;
+    background-color: #c0c0c0; /* Light gray */
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     border: solid 1px black;
