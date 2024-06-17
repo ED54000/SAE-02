@@ -6,17 +6,22 @@ import JDBC.RequetesSql;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Connection;
 
 public class RMIJavaSQL {
 
     public static void main(String[] args) {
+        ConnectionDb.setUsername(args[0]);
+        ConnectionDb.setPassword(args[1]);
+        Connection connection = ConnectionDb.getConnection();
+
         int port = 1098;
-        if(args.length > 0){
-            port = Integer.parseInt(args[0]);
+        if(args.length > 2){
+            port = Integer.parseInt(args[2]);
         }
         try {
             // Création de l'objet serveur
-            RequetesSql service = new RequetesSql();
+            RequetesSql service = new RequetesSql(connection);
 
             // Exportation de l'objet serveur
             InterfaceRequeteSql stub = (InterfaceRequeteSql) UnicastRemoteObject.exportObject(service, 0);

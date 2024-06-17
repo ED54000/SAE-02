@@ -6,11 +6,15 @@ import java.sql.*;
 import java.util.Map;
 
 public class RequetesSql implements InterfaceRequeteSql{
+    private Connection connection;
+
+    public RequetesSql(Connection connection) {
+        this.connection = connection;
+    }
 
     public JSONObject getRestaurants() {
         JSONObject jsonObject = new JSONObject();
         try {
-            Connection connection = ConnectionDb.getConnection();
 
             String sql = "SELECT NOM, NUMERO, ADRESSE, LATITUDE, LONGITUDE, NBPLACES FROM RESTAU";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

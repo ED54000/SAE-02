@@ -36,14 +36,14 @@ public class ProxyServer {
             String host2 = "localhost";
             int port2 = 1098;
 
-            if (args.length > 2) {
-                host1 = args[2];
-                if (args.length > 3) {
-                    port1 = Integer.parseInt(args[3]);
-                    if(args.length > 4){
-                        host2 = args[4];
-                        if(args.length > 5){
-                            port2 = Integer.parseInt(args[5]);
+            if (args.length > 0) {
+                host1 = args[0];
+                if(args.length > 1){
+                    port1 = Integer.parseInt(args[1]);
+                    if(args.length > 2){
+                        host2 = args[2];
+                        if(args.length > 3){
+                            port2 = Integer.parseInt(args[3]);
                         }
                     }
                 }
@@ -63,19 +63,7 @@ public class ProxyServer {
             e.printStackTrace();
             return;
         }
-        
-        //connexion à la base de données
-        ConnectionDb.setUsername(args[0]);
-        ConnectionDb.setPassword(args[1]);
 
-       Connection connection = ConnectionDb.getConnection();
-
-        //on cree un objet requetesSql pour pouvoir utiliser les methodes de cette classe
-        RequetesSql requetesSql = new RequetesSql();
-
-        //on execute la fonction test pour verifier le bon fonctionnement de jdbc
-        JSONObject restaurants = requetesSql.getRestaurants();
-        System.out.println(restaurants);
 
         // Crée et démarre un serveur HTTP sur le port 8000
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
