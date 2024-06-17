@@ -1,5 +1,8 @@
 package JavaHTTP;
     
+import JDBC.InterfaceRequeteSql;
+import JDBC.RequetesSql;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -24,7 +27,7 @@ public class RMIJavaSQL {
             // Enregistrement de l'objet serveur dans le registre
             registry.rebind("sql", stub);
 
-            System.out.println("Serveur RMI de requete http prêt.");
+            System.out.println("Serveur RMI de requete sql prêt.");
         } catch (Exception e) {
             System.err.println("Erreur lors du démarrage du serveur RMI : " + e.toString());
             e.printStackTrace();
