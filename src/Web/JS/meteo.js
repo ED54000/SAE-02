@@ -46,18 +46,21 @@ function calcPluie() {
     let pMatin = (API_PLUIE[1] + API_PLUIE[2] + API_PLUIE[3]) / 3;
     let pAprem = (API_PLUIE[3] + API_PLUIE[4] + API_PLUIE[5]) / 3;
     let pSoir = (API_PLUIE[5] + API_PLUIE[6] + API_PLUIE[7]) / 3;
-    tstPluie(pMatin);
-    tstPluie(pAprem);
-    tstPluie(pSoir);
+    let imgMatin = document.getElementById("meteo_matin");
+    let imgAprem = document.getElementById("meteo_aprem");
+    let imgSoir = document.getElementById("meteo_soir");
+    tstPluie(pMatin,imgMatin);
+    tstPluie(pAprem,imgAprem);
+    tstPluie(pSoir,imgSoir);
 }
 
 function tstPluie(nP,element){
     if (nP > 0.2) {
-        element.src = "../img/rain.png";
+        element.src = "../src/img/rain.svg";
     } else if (nP > 0) {
-        element.src = "../img/cloud.png";
+        element.src = "../src/img/cloud.svg";
     } else {
-        element.src = "../img/sun.png";
+        element.src = "../src/img/sun.svg";
     }
 }
 
