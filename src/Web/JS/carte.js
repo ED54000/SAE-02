@@ -71,32 +71,30 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var popresto = L.popup();
 
 function addResto(e) {
-    let coord = e.latlng.toString().split("(")[1].split(")")[0].split(",")  ;
-
+    let coord = e.latlng.toString().split("(")[1].split(")")[0].split(",");
     coord[1] = coord[1].substring(1);
     console.log(coord)
     popresto
         .setLatLng(e.latlng)
         .setContent(`<form id='restoForm'> 
-            <input type='hidden' id='latitude' name='latitude' value='${coord[0]}'"'><br>
+            <h3> Ajoutez un restaurant </h3>
+            <input type='hidden' id='latitude' name='latitude' value='${coord[0]}'"><br>
             <input type='hidden' id='longitude' name='longitude' value='${coord[1]}'><br>
             <label for='nom'>Nom:</label><br>
             <input type='text' id='nom' name='nom' required><br> 
-            <label for='rue'>Numéro de rue :</label><br>
+            <label for='numero'>Numéro de rue:</label><br>
             <input type='text' id='numero' name='numero' required><br>
-            <label for='prenom'>Adresse:</label><br>
+            <label for='adresse'>Adresse:</label><br>
             <input type='text' id='adresse' name='adresse' required><br>
-            <label for='nbTables'>Nombre de places:</label><br>
-            <input type='number' id='nbplaces' name='nbplaces' min='0' required><br>
+            <label for='nbPlaces'>Nombre de places:</label><br>
+            <input type='number' id='nbPlaces' name='nbPlaces' min='0' required><br>
             <input type='submit' value='Soumettre' class='btnRestoAdd'>   
-            </form>`)
+        </form>`)
         .openOn(map);
-    popresto.on('popupopen', function () {
-        document.querySelector('.btnRestoAdd').addEventListener('click', function (event) {
-            console.log('test');
-            event.preventDefault();
-            submitResto();
-        });
+
+    document.getElementById('restoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        submitRestoForm();
     });
 }
 
@@ -146,6 +144,7 @@ function getResto() {
                     <h1>${resto.nom}</h1>
                     <h3>${resto.numero} ${resto.adresse}<br> Nombre de places : ${resto.nbPlaces}</h3>
                     <form id="guestForm">
+                        
                         <input type="hidden" id="idrestaurant" name="idrestaurant" value="${resto.id}">   
                         <label for="nom">Nom:</label><br>
                         <input type="text" id="nom" name="nom" required><br>
@@ -194,14 +193,13 @@ function submitForm() {
         });
 }
 
-function submitResto() {
+function submitRestoForm() {
     const form = document.getElementById('restoForm');
     const formData = new FormData(form);
     const queryParams = new URLSearchParams();
     formData.forEach((value, key) => {
         queryParams.append(key, value);
     });
-    // Le pb est la
     const url = `http://localhost:8000/ajouterRestaurant?${queryParams.toString()}`;
     fetch(url, {
         method: 'GET'
@@ -209,9 +207,10 @@ function submitResto() {
         .then(response => response.text())
         .then(data => {
             alert(data);
+            window.location.reload();
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Erreur lors de l\'ajout du restaurant:', error);
         });
 }
 

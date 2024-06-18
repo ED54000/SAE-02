@@ -160,7 +160,6 @@ public class ProxyServer {
                         reponse = service2.addReserv(params) ? "Reservation ajoutée avec succès" : "Erreur lors de l'ajout de la reservation";
                         break;
                     case 2:
-                        System.out.println(params);
                         reponse = service2.addRestaurant(params) ? "Restaurant ajouté avec succès" : "Erreur lors de l'ajout du restaurant";
                         break;
                     default:

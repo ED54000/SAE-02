@@ -38,8 +38,9 @@ public class RequetesSql implements InterfaceRequeteSql{
     public int addAdresse(String adresse) {
         try {
             Connection connection = ConnectionDb.getConnection();
-            String sql = "SELECT * FROM ADRESSE WHERE ADRESSE LIKE "+ adresse;
+            String sql = "SELECT * FROM ADRESSE WHERE ADRESSE LIKE ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, adresse);
             ResultSet set = preparedStatement.executeQuery();
             if(set.next()){
                 System.out.println("L'adresse existe deja");
@@ -58,18 +59,27 @@ public class RequetesSql implements InterfaceRequeteSql{
                 return res;
             }
         } catch (SQLException e) {
-            System.out.println("erreur lors l'ajout d'un restaurant : " + e.getMessage());
+            System.out.println("erreur lors la récupération de l'adresse : " + e.getMessage());
         }
         return -1;
     }
 
     public boolean addRestaurant(Map<String, String> map) {
+        System.out.println(map);
         try {
             Connection connection = ConnectionDb.getConnection();
             int idAdresse = addAdresse(map.get("adresse"));
+            System.out.println(idAdresse);
             String sql = "INSERT INTO RESTAU (NOM,NUMERO,ADRESSE,LATITUDE, LONGITUDE,NBPLACES) " +
-                         "VALUES ('"+ map.get("nom") +"', "+ map.get("numero") +", "+ idAdresse +", "+ map.get("latitude") +", "+ map.get("longitude") +", "+ map.get("nbPlaces") +")";
+                         "VALUES (? ,? ,? ,? ,? ,? )";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, map.get("nom"));
+            preparedStatement.setString(2, map.get("numero"));
+            preparedStatement.setInt(3, idAdresse);
+            preparedStatement.setDouble(4, Double.parseDouble(map.get("latitude")));
+            preparedStatement.setDouble(5, Double.parseDouble(map.get("longitude")));
+            preparedStatement.setInt(6, Integer.parseInt(map.get("nbPlaces")));
+
             preparedStatement.execute();
             System.out.println("Restaurant ajouté avec succès");
             return true;
