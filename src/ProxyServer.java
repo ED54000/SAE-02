@@ -57,7 +57,7 @@ public class ProxyServer {
             service1 = (InterfaceJavaHTTP) registry1.lookup("http");
             service2 = (InterfaceRequeteSql) registry2.lookup("sql");
 
-            // todo service2
+
         }catch (Exception e){
             System.err.println("Erreur lors de la connexion aux serveurs RMI : " + e.toString());
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class ProxyServer {
                 exchange.sendResponseHeaders(204, -1);
                 exchange.close();
             } else if ("GET".equals(exchange.getRequestMethod())) {
-                System.out.println("envoie des données");
+                System.out.println("Envoie des données HTTP");
                 // Traitement des requêtes GET : récupérer les données de l'API externe
                 sendResponse(exchange, service1.handleGetRequest(externalApiUrl));
             } else {
@@ -145,7 +145,7 @@ public class ProxyServer {
                 exchange.sendResponseHeaders(204, -1);
                 exchange.close();
             } else if ("GET".equals(exchange.getRequestMethod())) {
-                System.out.println("envoie des données");
+                System.out.println("Envoi des données SQL "+num);
                 // Traitement des requêtes GET : récupérer les données de l'API externe
                 // Récupère les paramètres de la requête
                 String query = exchange.getRequestURI().getQuery();
@@ -154,7 +154,7 @@ public class ProxyServer {
                 String reponse;
                 switch (num) {
                     case 0:
-                        reponse = service2.getRestaurants().toString();
+                        reponse = service2.getRestaurants();
                         break;
                     case 1:
                         reponse = service2.addReserv(params) ? "Reservation ajoutée avec succès" : "Erreur lors de l'ajout de la reservation";
@@ -166,7 +166,7 @@ public class ProxyServer {
                         reponse = "Erreur";
                         break;
                 }
-
+                System.out.println(reponse);
                 // envoie des parametres et appel de la fonction dans requetesSQL
 
                 sendResponse(exchange, reponse);

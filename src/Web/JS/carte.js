@@ -69,29 +69,55 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-function fetchData(){
-    getVelib();
-    getResto();
-    getEtude();
-    getIncident();
+fetchData();
 
+var markers = new L.LayerGroup().addTo(map);
 
+function reinitialiser(){
+    markers.clearLayers();
+    fetchData();
 }
 
+
+
+var checkboxs = document.querySelectorAll('.legend-item input[type="checkbox"]');
+
+checkboxs.forEach( checkbox => {
+    checkbox.addEventListener('change', reinitialiser);
+    }
+)
+
+function fetchData(){
+    if(document.getElementById('Velibs').checked){
+        getVelib();
+    }
+
+    if(document.getElementById('Resto').checked){
+        getResto();
+    }
+
+    if(document.getElementById('Etude').checked){
+        getEtude();
+    }
+
+    if(document.getElementById('Incident').checked){
+        getIncident();
+    }
+}
 function getResto(){
     fetch('http://localhost:8000/restaurants')
         .then(response => response.json())
         .then(data => {
             for (let resto of data.data) {
                 var marker = L.marker([resto.latitude, resto.longitude], {icon: IconResto})
-                marker.bindPopup("<h1>"+resto.nom+"</h1><br><h2> "+resto.numero+" "+resto.adresse+"<br> Nombre de tables : "+ resto.nbTables + "</h2><button id='btnRsv'>Reserver</button>").openPopup();
-                marker.addTo(map)
+                marker.bindPopup("<h1>" + resto.nom + "</h1><br><h2> " + resto.numero + " " + resto.adresse + "<br> Nombre de places : " + resto.nbPlaces + "</h2><button class='btnRsv'>Reserver</button>").openPopup();
+                marker.addTo(markers)
 
             }
+
         })
         .catch(error => console.error('Error fetching data:', error));
-    let btnReserv = document.getElementById("btnRsv")
-    btnReserv.addEventListener(function(){console.log("Reservation")});
+
 }
 
 
@@ -113,7 +139,7 @@ function getIncident(){
                 let endtime = new Date(incident.endtime)
                 var marker = L.marker([coord[0], coord[1]], {icon: IconIncident});
                 marker.bindPopup("<h1>"+incident.type+"</h1><br><h2> "+incident.description+"<br><br> Date de fin: "+ endtime.toLocaleDateString('fr-FR',options) + "</h2>").openPopup();
-                marker.addTo(map)
+                marker.addTo(markers)
 
             }
         })
@@ -130,7 +156,7 @@ function getEtude(){
             for (let etude of data.results) {
                 var marker = L.marker([etude.coordonnees.lat, etude.coordonnees.lon],{icon: IconEtude})
                 marker.bindPopup("<h1>"+etude.implantation_lib+"</h1><br><h2> "+etude.adresse_uai+"<br> Effectif : "+ etude.effectif + "</h2>").openPopup();
-                marker.addTo(map)
+                marker.addTo(markers)
 
             }
         })
@@ -157,13 +183,12 @@ function getVelib(){
                 marker = L.marker([velib.lat, velib.lon], {icon: VelibIconBlack})
             }
             marker.bindPopup("<h1>"+velib.address+"</h1><br><h2> Vélos diponibles : "+dispo[0].toString()+"<br> Docks disponibles: "+ dispo[1].toString()+"</h2>").openPopup();
-            marker.addTo(map)
+            marker.addTo(markers)
         }
     })
     .catch(error => console.error('Error fetching data:', error));
 }
 
-fetchData()
 
 function getdispo(id){
     return dataStatus().then(data => {

@@ -56,11 +56,11 @@ function calcPluie() {
 
 function tstPluie(nP,element){
     if (nP > 0.2) {
-        element.src = "../src/img/rain.png";
+        element.src = "./img/rain.png";
     } else if (nP > 0) {
-        element.src = "../src/img/cloud.png";
+        element.src = "./img/cloud.png";
     } else {
-        element.src = "../src/img/sun.png";
+        element.src = "./img/sun.png";
     }
 }
 

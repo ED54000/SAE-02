@@ -29,6 +29,7 @@ public class RequetesSql implements InterfaceRequeteSql{
         } catch (SQLException e) {
             System.out.println("erreur lors la connexion : " + e.getMessage());
         }
+        System.out.println(jsonObject);
         return jsonObject.toString();
 
     }
@@ -50,16 +51,17 @@ public class RequetesSql implements InterfaceRequeteSql{
 
     public boolean addReserv(Map<String, String> map) {
         try {
-            Connection connection = ConnectionDb.getConnection();
-            String sql_insert = "INSERT INTO RESERV (IDRESTAURANT,NOM,PRENOM,NBCONVIVES,COORD_TEL) " +
-                         "VALUES ("+ map.get("idrestaurant") +", '"+ map.get("nom") +"', '"+ map.get("prenom") +"', "+ map.get("nbconvives") +", '"+ map.get("tel") +"')";
-            PreparedStatement preparedStatement1 = connection.prepareStatement(sql_insert);
-            preparedStatement1.execute();
             int newNbPlaces = getNbPlaces(Integer.parseInt(map.get("idrestaurant"))) - Integer.parseInt(map.get("nbconvives"));
             if(newNbPlaces < 0) {
                 System.out.println("Pas assez de places disponibles");
                 return false;
             } else {
+                Connection connection = ConnectionDb.getConnection();
+                String sql_insert = "INSERT INTO RESERV (IDRESTAURANT,NOM,PRENOM,NBCONVIVES,COORD_TEL) " +
+                             "VALUES ("+ map.get("idrestaurant") +", '"+ map.get("nom") +"', '"+ map.get("prenom") +"', "+ map.get("nbconvives") +", '"+ map.get("tel") +"')";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql_insert);
+                preparedStatement1.execute();
+
                 String sql_update = "UPDATE RESTAU SET (NBPLACES) = "+ newNbPlaces +" WHERE ID = "+ map.get("idrestaurant");
                 PreparedStatement preparedStatement2 = connection.prepareStatement(sql_update);
                 preparedStatement2.execute();

@@ -5,7 +5,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class RMIJavaHTTP {
-
     public static void main(String[] args) {
         int port = 1099;
         if(args.length > 0){
