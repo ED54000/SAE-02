@@ -23,8 +23,11 @@ public class RequetesSql implements InterfaceRequeteSql{
                 ResultSet set1 = preparedStatement1.executeQuery();
                 set1.next();
                 Restaurant restaurant = new Restaurant(set.getInt(1),set.getString(2), set.getInt(3), set1.getString(1), set.getDouble(5), set.getDouble(6), set.getInt(7));
+                set1.close();
                 jsonObject.append("data",restaurant.toJson());
             }
+            set.close();
+
         } catch (SQLException e) {
             System.out.println("erreur lors la connexion : " + e.getMessage());
         }
@@ -50,7 +53,9 @@ public class RequetesSql implements InterfaceRequeteSql{
                 //on reexecute la premiere commande pour recuperer l'id de la nouvelle adresse
                 ResultSet set2 = preparedStatement.executeQuery();
                 set2.next();
-                return set2.getInt(1);
+                int res = set2.getInt(1);
+                set2.close();
+                return res;
             }
         } catch (SQLException e) {
             System.out.println("erreur lors l'ajout d'un restaurant : " + e.getMessage());

@@ -71,24 +71,29 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var popresto = L.popup();
 
 function addResto(e) {
+    let coord = e.latlng.toString().split("(")[1].split(")")[0].split(",")  ;
+
+    coord[1] = coord[1].substring(1);
+    console.log(coord)
     popresto
         .setLatLng(e.latlng)
-        .setContent("<form id=\"guestForm\">\n                        " +
-            "<input type=\"hidden\" id=\"latitude\" name=\"latitude\" value=\"${e.latlng.split[0]}\">\n " +
-            "<input type=\"hidden\" id=\"longitude\" name=\"longitude\" value=\"${e.latlng.split[1]}\">\n " +
-            "<label for=\"nom\">Nom:</label><br>\n  " +
-            "<input type=\"text\" id=\"nom\" name=\"nom\" required><br>\n" +
-            "<label for=\"tel\">Numéro de rue :</label><br>\n" +
-            "<input type=\"tel\" id=\"num_adr\" name=\"num_adr\" required><br><br>\n"+
-            "<label for=\"prenom\">Adresse:</label><br>\n " +
-            "<input type=\"text\" id=\"adresse\" name=\"adresse\" required><br>\n     " +
-            "<label for=\"nbTables\">Nombre de places:</label><br>\n           " +
-            "<input type=\"number\" id=\"nbplaces\" name=\"nbplaces\" min=\"0\" required><br>\n" +
-            "<input type=\"submit\" value=\"Soumettre\" class=\"btnRestoAdd\">\n                  " +
-            "</form>")
+        .setContent(`<form id='restoForm'> 
+            <input type='hidden' id='latitude' name='latitude' value='${coord[0]}'"'><br>
+            <input type='hidden' id='longitude' name='longitude' value='${coord[1]}'><br>
+            <label for='nom'>Nom:</label><br>
+            <input type='text' id='nom' name='nom' required><br> 
+            <label for='rue'>Numéro de rue :</label><br>
+            <input type='text' id='numero' name='numero' required><br>
+            <label for='prenom'>Adresse:</label><br>
+            <input type='text' id='adresse' name='adresse' required><br>
+            <label for='nbTables'>Nombre de places:</label><br>
+            <input type='number' id='nbplaces' name='nbplaces' min='0' required><br>
+            <input type='submit' value='Soumettre' class='btnRestoAdd'>   
+            </form>`)
         .openOn(map);
     popresto.on('popupopen', function () {
-        document.querySelector('.btnRestAdd').addEventListener('click', function (event) {
+        document.querySelector('.btnRestoAdd').addEventListener('click', function (event) {
+            console.log('test');
             event.preventDefault();
             submitResto();
         });
@@ -196,6 +201,7 @@ function submitResto() {
     formData.forEach((value, key) => {
         queryParams.append(key, value);
     });
+    // Le pb est la
     const url = `http://localhost:8000/ajouterRestaurant?${queryParams.toString()}`;
     fetch(url, {
         method: 'GET'
@@ -208,7 +214,6 @@ function submitResto() {
             console.error('Error:', error);
         });
 }
-
 
 function getIncident(){
     // Mise en forme de la date

@@ -157,10 +157,10 @@ public class ProxyServer {
                         reponse = service2.getRestaurants();
                         break;
                     case 1:
-                        System.out.println(params);
                         reponse = service2.addReserv(params) ? "Reservation ajoutée avec succès" : "Erreur lors de l'ajout de la reservation";
                         break;
                     case 2:
+                        System.out.println(params);
                         reponse = service2.addRestaurant(params) ? "Restaurant ajouté avec succès" : "Erreur lors de l'ajout du restaurant";
                         break;
                     default:
@@ -176,7 +176,6 @@ public class ProxyServer {
                 exchange.close();
             }
         }
-
 
          private Map<String, String> queryToMap(String query) throws UnsupportedEncodingException {
             Map<String, String> result = new HashMap<>();
