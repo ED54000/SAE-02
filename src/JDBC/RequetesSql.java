@@ -13,32 +13,57 @@ public class RequetesSql implements InterfaceRequeteSql{
         JSONObject jsonObject = new JSONObject();
         try {
             Connection connection = ConnectionDb.getConnection();
-            String sql = "SELECT NOM, NUMERO, ADRESSE, LATITUDE, LONGITUDE, NBPLACES FROM RESTAU";
+            String sql = "SELECT ID, NOM, NUMERO, ADRESSE, LATITUDE, LONGITUDE, NBPLACES FROM RESTAU";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet set = preparedStatement.executeQuery();
             while (set.next()) {
                 String adr = "SELECT ADRESSE FROM ADRESSE WHERE ID = ?";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(adr);
-                preparedStatement1.setInt(1, set.getInt(3));
+                preparedStatement1.setInt(1, set.getInt(4));
                 ResultSet set1 = preparedStatement1.executeQuery();
                 set1.next();
-                Restaurant restaurant = new Restaurant(set.getString(1), set.getInt(2), set1.getString(1), set.getDouble(4), set.getDouble(5), set.getInt(6));
+                Restaurant restaurant = new Restaurant(set.getInt(1),set.getString(2), set.getInt(3), set1.getString(1), set.getDouble(5), set.getDouble(6), set.getInt(7));
                 jsonObject.append("data",restaurant.toJson());
-
             }
         } catch (SQLException e) {
             System.out.println("erreur lors la connexion : " + e.getMessage());
         }
-        System.out.println(jsonObject);
         return jsonObject.toString();
 
+    }
+
+    public int addAdresse(String adresse) {
+        try {
+            Connection connection = ConnectionDb.getConnection();
+            String sql = "SELECT * FROM ADRESSE WHERE ADRESSE LIKE "+ adresse;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet set = preparedStatement.executeQuery();
+            if(set.next()){
+                System.out.println("L'adresse existe deja");
+                return set.getInt(1);
+            }else {
+                String sql_insert = "INSERT INTO ADRESSE (ADRESSE) " +
+                        "VALUES ('"+ adresse +"')";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql_insert);
+                preparedStatement1.execute();
+                System.out.println("Nouvelle adresse ajoutee");
+                //on reexecute la premiere commande pour recuperer l'id de la nouvelle adresse
+                ResultSet set2 = preparedStatement.executeQuery();
+                set2.next();
+                return set2.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur lors l'ajout d'un restaurant : " + e.getMessage());
+        }
+        return -1;
     }
 
     public boolean addRestaurant(Map<String, String> map) {
         try {
             Connection connection = ConnectionDb.getConnection();
+            int idAdresse = addAdresse(map.get("adresse"));
             String sql = "INSERT INTO RESTAU (NOM,NUMERO,ADRESSE,LATITUDE, LONGITUDE,NBPLACES) " +
-                         "VALUES ('"+ map.get("nom") +"', "+ map.get("numero") +", "+ map.get("adresse") +", "+ map.get("latitude") +", "+ map.get("longitude") +", "+ map.get("nbPlaces") +")";
+                         "VALUES ('"+ map.get("nom") +"', "+ map.get("numero") +", "+ idAdresse +", "+ map.get("latitude") +", "+ map.get("longitude") +", "+ map.get("nbPlaces") +")";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
             System.out.println("Restaurant ajouté avec succès");

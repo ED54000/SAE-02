@@ -52,6 +52,15 @@ function calcPluie() {
     tstPluie(pMatin,imgMatin);
     tstPluie(pAprem,imgAprem);
     tstPluie(pSoir,imgSoir);
+    let imgActu = document.getElementById("meteo_act");
+    if(dateActu() === 0){
+        tstPluie(pMatin,imgActu);
+    }else if(dateActu() === 1) {
+        tstPluie(pAprem,imgActu);
+    } else if(dateActu() === 2) {
+        tstPluie(pSoir,imgActu);
+    }
+
 }
 
 function tstPluie(nP,element){
@@ -61,6 +70,18 @@ function tstPluie(nP,element){
         element.src = "./img/cloud.png";
     } else {
         element.src = "./img/sun.png";
+    }
+}
+
+function dateActu(){
+    let d = new Date();
+    let h = d.getHours();
+    if (h < 11) {
+        return 0;
+    } else if (h < 17) {
+        return 1;
+    } else {
+        return 2;
     }
 }
 

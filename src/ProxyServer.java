@@ -157,6 +157,7 @@ public class ProxyServer {
                         reponse = service2.getRestaurants();
                         break;
                     case 1:
+                        System.out.println(params);
                         reponse = service2.addReserv(params) ? "Reservation ajoutée avec succès" : "Erreur lors de l'ajout de la reservation";
                         break;
                     case 2:
@@ -166,7 +167,6 @@ public class ProxyServer {
                         reponse = "Erreur";
                         break;
                 }
-                System.out.println(reponse);
                 // envoie des parametres et appel de la fonction dans requetesSQL
 
                 sendResponse(exchange, reponse);

@@ -68,7 +68,34 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+var popresto = L.popup();
 
+function addResto(e) {
+    popresto
+        .setLatLng(e.latlng)
+        .setContent("<form id=\"guestForm\">\n                        " +
+            "<input type=\"hidden\" id=\"latitude\" name=\"latitude\" value=\"${e.latlng.split[0]}\">\n " +
+            "<input type=\"hidden\" id=\"longitude\" name=\"longitude\" value=\"${e.latlng.split[1]}\">\n " +
+            "<label for=\"nom\">Nom:</label><br>\n  " +
+            "<input type=\"text\" id=\"nom\" name=\"nom\" required><br>\n" +
+            "<label for=\"tel\">Numéro de rue :</label><br>\n" +
+            "<input type=\"tel\" id=\"num_adr\" name=\"num_adr\" required><br><br>\n"+
+            "<label for=\"prenom\">Adresse:</label><br>\n " +
+            "<input type=\"text\" id=\"adresse\" name=\"adresse\" required><br>\n     " +
+            "<label for=\"nbTables\">Nombre de places:</label><br>\n           " +
+            "<input type=\"number\" id=\"nbplaces\" name=\"nbplaces\" min=\"0\" required><br>\n" +
+            "<input type=\"submit\" value=\"Soumettre\" class=\"btnRestoAdd\">\n                  " +
+            "</form>")
+        .openOn(map);
+    popresto.on('popupopen', function () {
+        document.querySelector('.btnRestAdd').addEventListener('click', function (event) {
+            event.preventDefault();
+            submitResto();
+        });
+    });
+}
+
+map.on('click', addResto);
 fetchData();
 
 var markers = new L.LayerGroup().addTo(map);
@@ -104,15 +131,36 @@ function fetchData(){
         getIncident();
     }
 }
-function getResto(){
+function getResto() {
     fetch('http://localhost:8000/restaurants')
         .then(response => response.json())
         .then(data => {
             for (let resto of data.data) {
-                var marker = L.marker([resto.latitude, resto.longitude], {icon: IconResto})
-                marker.bindPopup("<h1>" + resto.nom + "</h1><br><h2> " + resto.numero + " " + resto.adresse + "<br> Nombre de places : " + resto.nbPlaces + "</h2><button class='btnRsv'>Reserver</button>").openPopup();
-                marker.addTo(markers)
+                var marker = L.marker([resto.latitude, resto.longitude], {icon: IconResto});
+                marker.bindPopup(`
+                    <h1>${resto.nom}</h1>
+                    <h3>${resto.numero} ${resto.adresse}<br> Nombre de places : ${resto.nbPlaces}</h3>
+                    <form id="guestForm">
+                        <input type="hidden" id="idrestaurant" name="idrestaurant" value="${resto.id}">   
+                        <label for="nom">Nom:</label><br>
+                        <input type="text" id="nom" name="nom" required><br>
+                        <label for="prenom">Prénom:</label><br>
+                        <input type="text" id="prenom" name="prenom" required><br>
+                        <label for="nbconvives">Nombre de convives:</label><br>
+                        <input type="number" id="nbconvives" name="nbconvives" min="0" required><br>
+                        <label for="tel">Numéro de téléphone:</label><br>
+                        <input type="tel" id="tel" name="tel" pattern="[0-9]{10}" required><br><br>
+                        <input type="submit" value="Soumettre" class="btnRsv">
+                    </form>
+                `).openPopup();
+                marker.addTo(markers);
 
+                marker.on('popupopen', function () {
+                    document.querySelector('.btnRsv').addEventListener('click', function (event) {
+                        event.preventDefault();
+                        submitForm();
+                    });
+                });
             }
 
         })
@@ -120,6 +168,46 @@ function getResto(){
 
 }
 
+function submitForm() {
+    const form = document.getElementById('guestForm');
+    const formData = new FormData(form);
+    const queryParams = new URLSearchParams();
+    formData.forEach((value, key) => {
+        queryParams.append(key, value);
+    });
+    const url = `http://localhost:8000/reserver?${queryParams.toString()}`;
+    fetch(url, {
+        method: 'GET'
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function submitResto() {
+    const form = document.getElementById('restoForm');
+    const formData = new FormData(form);
+    const queryParams = new URLSearchParams();
+    formData.forEach((value, key) => {
+        queryParams.append(key, value);
+    });
+    const url = `http://localhost:8000/ajouterRestaurant?${queryParams.toString()}`;
+    fetch(url, {
+        method: 'GET'
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 
 
 function getIncident(){
@@ -140,14 +228,10 @@ function getIncident(){
                 var marker = L.marker([coord[0], coord[1]], {icon: IconIncident});
                 marker.bindPopup("<h1>"+incident.type+"</h1><br><h2> "+incident.description+"<br><br> Date de fin: "+ endtime.toLocaleDateString('fr-FR',options) + "</h2>").openPopup();
                 marker.addTo(markers)
-
             }
         })
         .catch(error => console.error('Error fetching data:', error));
-
 }
-
-
 
 function getEtude(){
     fetch('http://localhost:8000/etudeSup')
@@ -157,7 +241,6 @@ function getEtude(){
                 var marker = L.marker([etude.coordonnees.lat, etude.coordonnees.lon],{icon: IconEtude})
                 marker.bindPopup("<h1>"+etude.implantation_lib+"</h1><br><h2> "+etude.adresse_uai+"<br> Effectif : "+ etude.effectif + "</h2>").openPopup();
                 marker.addTo(markers)
-
             }
         })
         .catch(error => console.error('Error fetching data:', error));

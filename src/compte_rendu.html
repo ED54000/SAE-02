@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Compte Rendu</title>
+    <link rel="stylesheet" href="Web/CSS/index.css">
+</head>
+<style>
+    body {
+        overflow-y: auto; /* Activer le défilement vertical */
+        margin: 0; /* Réinitialiser les marges par défaut */
+        padding: 0; /* Réinitialiser les paddings par défaut */
+    }
+
+
+</style>
+<body>
+<div class="title">
+    <h1>Compte Rendu</h1>
+</div>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="compte_rendu.html">Compte Rendu</a></li>
+    </ul>
+</nav>
+
+<div class="compte_rendu">
+    <h2>Introduction</h2>
+    <ul>
+        <li><strong>Objectif du Projet :</strong> Développer une application web interactive pour afficher divers points d'intérêt sur une carte, intégrée à des fonctionnalités météorologiques et de légende.</li>
+        <li><strong>Technologies Utilisées :</strong> HTML, CSS, JavaScript (avec modules), Leaflet.js, APIs externes (pour la météo), Serveur HTTP avec Java (HTTPServer), RMI pour la communication entre le serveur et la base de données.</li>
+    </ul>
+
+    <h2>Architecture</h2>
+
+    <h3>Frontend :</h3>
+    <ul>
+        <li><strong>HTML/CSS/JS :</strong> Utilisés pour la structure, le style et l'interaction de la page web.</li>
+        <li><strong>Leaflet.js :</strong> Bibliothèque JavaScript pour l'affichage de cartes interactives OpenStreetMap.</li>
+        <li><strong>APIs Externes :</strong> Utilisées pour obtenir les données météorologiques en temps réel.</li>
+    </ul>
+
+    <h3>Backend :</h3>
+    <ul>
+        <li><strong>Java HTTPServer :</strong> Serveur HTTP pour la gestion des requêtes et des réponses côté serveur.</li>
+        <li><strong>Java RMI (Remote Method Invocation) :</strong> Utilisé pour la communication avec la base de données via des services distants.</li>
+        <li><strong>Base de Données :</strong> Non spécifiée dans le code fourni, mais impliquée via les appels RMI à des services de requêtes SQL.</li>
+    </ul>
+
+    <h2>Fonctionnalités Implémentées</h2>
+    <ul>
+        <li><strong>Carte Interactive :</strong> Affiche des points d'intérêt (vélibs, restaurants, établissements d'études supérieurs, incidents) avec des icônes spécifiques.</li>
+        <li><strong>Légende Dynamique :</strong> Permet à l'utilisateur de filtrer les catégories de points d'intérêt à afficher sur la carte.</li>
+        <li><strong>Affichage Météorologique :</strong> Donne des informations météorologiques actuelles avec des icônes et des descriptions pour différents moments de la journée.</li>
+        <li><strong>Formulaire de Réservation :</strong>Permet aux utilisateurs de réserver des restaurants en utilisant un formulaire interactif sur la carte.</li>
+        <li><strong>Ajout de Restaurant :</strong> Permet aux utilisateurs d'ajouter de nouveaux restaurants à la carte en cliquant sur un emplacement spécifique.</li>
+    </ul>
+
+    <h2>Informations d'Utilisation</h2>
+    <ul>
+        <li><strong>Prérequis :</strong> Il faut tout d'abord lancer RMIJavaSQL avec les paramètres de la base de données, RMIJavaHttp sans paramètres puis ProxyServeur sans paramètres.</li>
+        <li><strong>Utilisation de l'Application :</strong> Ouvrez index.html dans un navigateur web moderne pour voir la carte interactive. Utilisez les cases à cocher de la légende pour filtrer les catégories de points d'intérêt. Consultez les informations météorologiques dans la section dédiée.</li>
+        <li><strong>Formulaire de Réservation : </strong> Cliquez sur un marqueur de restaurant sur la carte, remplissez et soumettez le formulaire pour effectuer une réservation. Assurez-vous que le serveur Java avec RMI est en cours d'exécution pour le traitement côté serveur.</li>
+    </ul>
+
+    <h2>Liens et Dépôt Git</h2>
+
+    <strong>Dépôt Git :</strong> <a href="https://github.com/ED54000/SAE-02" > Github </a>
+
+</div>
+</body>
+</html>

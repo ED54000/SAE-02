@@ -36,6 +36,12 @@ body {
     height: 40px;
 }
 
+.meteo>#bandeau {
+    text-align: center;
+    text-decoration-color: #dddddd;
+    background-color: #6a6a6a;
+}
+
 .time-info {
     transform: translateX(100%);
     opacity: 0;
@@ -114,3 +120,4 @@ body {
     z-index: 1;
     border-top-right-radius: 15px;
 }
+

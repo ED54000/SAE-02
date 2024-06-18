@@ -14,10 +14,15 @@
 </head>
 <body>
     <div class="title"><h1>All in Map</h1></div>
-    
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="compte_rendu.html">Compte Rendu</a></li>
+        </ul>
+    </nav>
     <div class="center">
         <div class="legend">
-            <h3>Legend</h3>
+            <h3>Légende</h3>
             <div class="items">
                 <div class="legend-item">
                     <p><img src="img/bike-black.svg" alt="icon"> <label for="Velibs">Velibs</label> <input type="checkbox" id='Velibs' name="Velibs" placeholder="true" checked></p>
@@ -37,7 +42,8 @@
         </div>
 
     </div>
-    <div class="meteo"><img src="img/icon.svg" alt="meteo">
+    <div class="meteo"><img id="meteo_act" src="img/icon.svg" alt="meteo" >
+        <div class="time-info" id="bandeau"><h3>Météo du jour</h3></div>
         <div class="time-info">Matin <img id="meteo_matin" src="img/icon.svg" alt="temps"><p id="txt_matin"></p></div>
         <div class="time-info">Après-midi <img id="meteo_aprem" src="img/icon.svg" alt="temps"><p id="txt_aprem"></p></div>
         <div class="time-info">Soir <img id="meteo_soir" src="img/icon.svg" alt="temps"><p id="txt_soir"></p></div>

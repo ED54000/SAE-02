@@ -13,7 +13,6 @@ public class RMIJavaHTTP {
         try {
             // Création de l'objet serveur
             JavaHTTP service = new JavaHTTP();
-
             // Exportation de l'objet serveur
             InterfaceJavaHTTP stub = (InterfaceJavaHTTP) UnicastRemoteObject.exportObject(service, 0);
 
