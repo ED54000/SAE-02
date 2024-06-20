@@ -1,6 +1,6 @@
-import { dataMeteo } from './api.js';
+import {dataMeteo} from './api.js';
 
-const API_HOURS = [" 02:00:00"," 05:00:00"," 08:00:00"," 11:00:00"," 14:00:00"," 17:00:00"," 20:00:00"," 23:00:00"," 23:00:00"];
+const API_HOURS = [" 02:00:00", " 05:00:00", " 08:00:00", " 11:00:00", " 14:00:00", " 17:00:00", " 20:00:00", " 23:00:00", " 23:00:00"];
 var API_TEMP = [];
 var API_PLUIE = [];
 
@@ -9,14 +9,14 @@ function getCurrentDate() {
     let year = currentDate.getFullYear();
     if (currentDate.getMonth() < 9) {
         var month = "0" + (currentDate.getMonth() + 1).toString();
-    }else{
+    } else {
         var month = currentDate.getMonth().toString();
     }
     const day = String(currentDate.getDate());
     return `${year}-${month}-${day}`;
 }
 
-async function getTodayPrevision(){
+async function getTodayPrevision() {
     let data = await dataMeteo();
     const currentDate = getCurrentDate();
     let i = 0;
@@ -35,11 +35,11 @@ function calcTemp() {
     let tAprem = (API_TEMP[3] + API_TEMP[4] + API_TEMP[5]) / 3;
     let tSoir = (API_TEMP[5] + API_TEMP[6] + API_TEMP[7]) / 3;
     let texteMatin = document.getElementById("txt_matin");
-    texteMatin.innerHTML = Math.round(tMatin*100)/100 + " °C";
+    texteMatin.innerHTML = Math.round(tMatin * 100) / 100 + " °C";
     let texteAprem = document.getElementById("txt_aprem");
-    texteAprem.innerHTML = Math.round(tAprem*100)/100 + " °C";
+    texteAprem.innerHTML = Math.round(tAprem * 100) / 100 + " °C";
     let texteSoir = document.getElementById("txt_soir");
-    texteSoir.innerHTML = Math.round(tSoir*100)/100 + " °C";
+    texteSoir.innerHTML = Math.round(tSoir * 100) / 100 + " °C";
 }
 
 function calcPluie() {
@@ -49,21 +49,21 @@ function calcPluie() {
     let imgMatin = document.getElementById("meteo_matin");
     let imgAprem = document.getElementById("meteo_aprem");
     let imgSoir = document.getElementById("meteo_soir");
-    tstPluie(pMatin,imgMatin);
-    tstPluie(pAprem,imgAprem);
-    tstPluie(pSoir,imgSoir);
+    tstPluie(pMatin, imgMatin);
+    tstPluie(pAprem, imgAprem);
+    tstPluie(pSoir, imgSoir);
     let imgActu = document.getElementById("meteo_act");
-    if(dateActu() === 0){
-        tstPluie(pMatin,imgActu);
-    }else if(dateActu() === 1) {
-        tstPluie(pAprem,imgActu);
-    } else if(dateActu() === 2) {
-        tstPluie(pSoir,imgActu);
+    if (dateActu() === 0) {
+        tstPluie(pMatin, imgActu);
+    } else if (dateActu() === 1) {
+        tstPluie(pAprem, imgActu);
+    } else if (dateActu() === 2) {
+        tstPluie(pSoir, imgActu);
     }
 
 }
 
-function tstPluie(nP,element){
+function tstPluie(nP, element) {
     if (nP > 0.2) {
         element.src = "./img/rain.png";
     } else if (nP > 0) {
@@ -73,7 +73,7 @@ function tstPluie(nP,element){
     }
 }
 
-function dateActu(){
+function dateActu() {
     let d = new Date();
     let h = d.getHours();
     if (h < 11) {

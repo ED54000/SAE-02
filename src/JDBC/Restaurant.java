@@ -1,5 +1,7 @@
 package JDBC;
+
 import org.json.JSONObject;
+
 public class Restaurant {
     private int id;
     private String nom;
@@ -41,7 +43,6 @@ public class Restaurant {
         int nbPlaces = jsonObject.getInt("nbPlaces");
         return new Restaurant(id, nom, numero, adresse, latitude, longitude, nbPlaces);
     }
-
 
 
 }

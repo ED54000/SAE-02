@@ -36,9 +36,6 @@ export async function dataStatus() {
 }
 
 
-
-
-
 /*
 idées:
 api adresses et coordonnées du grand nancy :

@@ -6,7 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.rmi.RemoteException;
 
-public class JavaHTTP implements InterfaceJavaHTTP{
+public class JavaHTTP implements InterfaceJavaHTTP {
 
     @Override
     public String handleGetRequest(String externalApiUrl) throws RemoteException {
@@ -24,5 +24,5 @@ public class JavaHTTP implements InterfaceJavaHTTP{
         }
     }
 
-    
+
 }

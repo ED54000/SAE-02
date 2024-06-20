@@ -65,11 +65,9 @@ public class RequetesSql implements InterfaceRequeteSql{
     }
 
     public boolean addRestaurant(Map<String, String> map) {
-        System.out.println(map);
         try {
             Connection connection = ConnectionDb.getConnection();
             int idAdresse = addAdresse(map.get("adresse"));
-            System.out.println(idAdresse);
             String sql = "INSERT INTO RESTAU (NOM,NUMERO,ADRESSE,LATITUDE, LONGITUDE,NBPLACES) " +
                          "VALUES (? ,? ,? ,? ,? ,? )";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

@@ -36,7 +36,7 @@ body {
     height: 40px;
 }
 
-.meteo>#bandeau {
+.meteo > #bandeau {
     text-align: center;
     text-decoration-color: #dddddd;
     background-color: #6a6a6a;
@@ -45,12 +45,12 @@ body {
 .time-info {
     transform: translateX(100%);
     opacity: 0;
-    background-color: #c0c0c0; 
+    background-color: #c0c0c0;
     border: 1px solid #ddd;
     padding: 10px;
     transition: 0.5s;
     width: 200px;
-    z-index:3;
+    z-index: 3;
 }
 
 .meteo:hover .time-info {

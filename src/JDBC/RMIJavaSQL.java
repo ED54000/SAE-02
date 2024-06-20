@@ -1,5 +1,5 @@
 package JDBC;
-    
+
 import JDBC.InterfaceRequeteSql;
 import JDBC.RequetesSql;
 
@@ -15,7 +15,7 @@ public class RMIJavaSQL {
         ConnectionDb.setPassword(args[1]);
 
         int port = 1098;
-        if(args.length > 2){
+        if (args.length > 2) {
             port = Integer.parseInt(args[2]);
         }
         try {
