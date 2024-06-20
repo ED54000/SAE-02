@@ -39,3 +39,6 @@ Informations d'Utilisation
   - Formulaire de Réservation : Cliquez sur un marqueur de restaurant sur la carte, remplissez et soumettez le formulaire pour effectuer une réservation. Assurez-vous que le serveur Java avec RMI est en cours d'exécution pour le traitement côté serveur.
 
 Attention : Il faut utiliser xampp ou tout outil similaire pour pouvoir lancer sans erreur.
+
+## Lien webetu :
+https://webetu.iutnc.univ-lorraine.fr/www/duchene55u/SAE-02/SAE_Nancy_Stan/
